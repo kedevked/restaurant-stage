@@ -29,9 +29,9 @@
   <main id="maincontent">
     <!-- Beginning map -->
     <section id="map-container" class="map-hidden">
-      <div role='dialog' labelledBy='restaurant address'>
+      <div role='dialog' class="address-dialog" labelledBy='restaurant address'>
         <div id="map"></div>
-        <button class="close-button" onclick="closeMap()">Close</button>
+        <button class="close-button">Close</button>
       </div>
     </section>
     <!-- End map -->
@@ -68,13 +68,73 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeCAur3WuwLz9vaZyfuVA4WzfqSFjmiM&libraries=places&callback=initMap"></script>
 
   <script type="text/javascript">
+    let modalOverlay = document.querySelector('#map-container');
+    let focusedElementBeforeModal;
+    let modal = document.querySelector('.address-dialog');
+    let firstTabStop;
+    let lastTabStop;
+    let closeButton = document.querySelector('.close-button');
+
     displayRestoLocation = () => {
+      focusedElementBeforeModal = document.activeElement;
+
+      // Listen for and trap the keyboard
+      modal.addEventListener('keydown', trapTabKey);
+
+      // prevent modal to close when click on the map
+      modal.addEventListener('click', (e) => {
+        e.stopPropagation();
+      })
+
+      modalOverlay.addEventListener('click', closeModal);
+      closeButton.addEventListener('click', closeModal);
+
+      // Find all focusable children
+      var focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+      var focusableElements = [...modal.querySelectorAll(focusableElementsString)];
+
+      firstTabStop = focusableElements[0];
+      lastTabStop = focusableElements[focusableElements.length - 1];
+
       document.querySelector('#map-container')
       .classList.remove('map-hidden');
+
+      // Focus first child
+      firstTabStop.focus();
     }
-    closeMap = () => {
+
+    trapTabKey = (e) => {
+       // Check for TAB key press
+    if (e.keyCode === 9) {
+
+      // SHIFT + TAB
+      if (e.shiftKey) {
+        if (document.activeElement === firstTabStop) {
+          e.preventDefault();
+          lastTabStop.focus();
+        }
+
+      // TAB
+      } else {
+        if (document.activeElement === lastTabStop) {
+          e.preventDefault();
+          firstTabStop.focus();
+        }
+      }
+    }
+
+    // ESCAPE
+    if (e.keyCode === 27) {
+      closeModal();
+    }
+  }
+
+    closeModal = () => {
      document.querySelector('#map-container')
       .classList.add('map-hidden'); 
+
+      // Set focus back to element that had it before the modal was opened
+      focusedElementBeforeModal.focus();
     }
   </script>
   <!-- End scripts -->
