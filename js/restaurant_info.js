@@ -161,3 +161,8 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+displayRestoLocation = () => {
+  document.querySelector('.inside #map-container')
+  .classList.remove('map-hidden');
+}

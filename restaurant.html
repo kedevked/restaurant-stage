@@ -28,8 +28,11 @@
   <!-- Beginning main -->
   <main id="maincontent">
     <!-- Beginning map -->
-    <section id="map-container">
-      <div id="map"></div>
+    <section id="map-container" class="map-hidden">
+      <div role='dialog' labelledBy='restaurant address'>
+        <div id="map"></div>
+        <button class="close-button" onclick="closeMap()">Close</button>
+      </div>
     </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
@@ -39,6 +42,7 @@
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
       <table id="restaurant-hours"></table>
+      <button onclick="displayRestoLocation()">View address</button>
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
@@ -62,6 +66,17 @@
   <script type="text/javascript" src="js/restaurant_info.js"></script>
   <!-- Google Maps -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqeCAur3WuwLz9vaZyfuVA4WzfqSFjmiM&libraries=places&callback=initMap"></script>
+
+  <script type="text/javascript">
+    displayRestoLocation = () => {
+      document.querySelector('#map-container')
+      .classList.remove('map-hidden');
+    }
+    closeMap = () => {
+     document.querySelector('#map-container')
+      .classList.add('map-hidden'); 
+    }
+  </script>
   <!-- End scripts -->
 
 </body>
