@@ -315,9 +315,21 @@ nav h1 a {
 
 .close-button {
    height: 1cm;
-    width: 2cm;
+    width: 3cm;
     position: fixed;
     right: 0;
     bottom: 0;
+}
 
+.close-button {
+  background-color: orange;
+  border-bottom: 3px solid #eee;
+  color: #fff;
+  display: inline-block;
+  font-size: 10pt;
+  margin: 15px 0 0;
+  padding: 8px 30px 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
 }
