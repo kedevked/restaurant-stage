@@ -15,11 +15,7 @@ This webapp features reviews for different restaurant using googleMap. Responsiv
 
 ## Accessibility
 
- All focusable elements are accessible via tab key. Especially the modal that display the address of a restaurant was built with accessibility in mind. Here are some design patterns with the modals:
-
- 	- a click in the overlay closes the modal
- 	- `esc` quits the modals
- 	- the modal traps the tab key until the user closes it
+ All focusable elements are accessible via tab key.
 
 ## Service Worker
 
